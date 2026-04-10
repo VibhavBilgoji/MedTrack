@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── User profiles ─────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+
+      // ── Medicine subcollection ─────────────────────────────────────────
+      match /medicines/{medicineId} {
+        allow read, write: if isAuthenticated() && isOwner(userId);
+      }
+
+      // ── Notification log subcollection ───────────────────────────────
+      match /notificationLogs/{logId} {
+        allow read, write: if isAuthenticated() && isOwner(userId);
+      }
+
+      // ── Scan history subcollection ───────────────────────────────────
+      match /scanHistory/{scanId} {
+        allow read, write: if isAuthenticated() && isOwner(userId);
+      }
+    }
+
+    // ── Households ────────────────────────────────────────────────────────
+    match /households/{householdId} {
+      // Owner has full access
+      allow read, write: if isAuthenticated() &&
+        request.auth.uid == resource.data.ownerId;
+
+      // Members can read and add medicines
+      allow read: if isAuthenticated() &&
+        request.auth.uid in resource.data.memberIds;
+
+      // ── Shared medicines ──────────────────────────────────────────────
+      match /medicines/{medicineId} {
+        allow read: if isAuthenticated() &&
+          (request.auth.uid == get(/databases/$(database)/documents/households/$(householdId)).data.ownerId ||
+           request.auth.uid in get(/databases/$(database)/documents/households/$(householdId)).data.memberIds);
+
+        allow write: if isAuthenticated() &&
+          request.auth.uid != null &&
+          (request.auth.uid == get(/databases/$(database)/documents/households/$(householdId)).data.ownerId ||
+           isMember(householdId));
+      }
+    }
+
+    // ── FCM token registry ────────────────────────────────────────────────
+    match /fcmTokens/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+
+    // ── Helper functions ──────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isMember(householdId) {
+      return request.auth.uid in get(/databases/$(database)/documents/households/$(householdId)).data.memberIds;
+    }
+  }
+}

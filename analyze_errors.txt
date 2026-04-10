@@ -1,0 +1,664 @@
+﻿
+  error - 
+core\theme\app_theme.dart:3:8 
+- Target of URI doesn't 
+exist: 'app_colors.dart'. Try 
+creating the file referenced 
+by the URI, or try using a 
+URI for a file that does 
+exist. - uri_does_not_exist
+  error - core\theme\app_theme
+.dart:16:18 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:18:16 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:19:34 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:19:58 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:20:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:20:49 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:21:41 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:21:62 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:22:27 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:22:55 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:23:34 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:23:64 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:24:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:24:48 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:25:14 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:33:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:33:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:37:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:37:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:41:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:41:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:45:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:45:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:49:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:49:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:53:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:53:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:57:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:57:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:61:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:61:55 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:65:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:65:55 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:69:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:69:53 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:77:41 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:77:65 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:81:35 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:81:59 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:87:27 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:87:55 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:90:27 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:90:55 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:95:18 - The argument 
+type 'CardTheme' can't be 
+assigned to the parameter 
+type 'CardThemeData?'.  - 
+argument_type_not_assignable
+  error - core\theme\app_theme
+.dart:97:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:97:46 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:101:29 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:101:52 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:112:28 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:113:28 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:126:28 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:127:41 - Invalid 
+constant value. - 
+invalid_constant
+  error - core\theme\app_theme
+.dart:127:41 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:139:28 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:147:29 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:156:29 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:156:52 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:162:47 - Invalid 
+constant value. - 
+invalid_constant
+  error - core\theme\app_theme
+.dart:162:47 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:166:47 - Invalid 
+constant value. - 
+invalid_constant
+  error - core\theme\app_theme
+.dart:166:47 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:170:27 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:170:57 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:174:27 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:174:57 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:180:35 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:180:56 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:181:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:187:47 - Invalid 
+constant value. - 
+invalid_constant
+  error - core\theme\app_theme
+.dart:187:47 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:190:29 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:190:59 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:200:35 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:209:25 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - core\theme\app_theme
+.dart:209:48 - Undefined name 
+'AppColors'. Try correcting 
+the name to one that is 
+defined, or defining the 
+name. - undefined_identifier
+  error - features\auth\data\d
+atasources\auth_remote_datasou
+rce.dart:32:50 - The named 
+parameter 'code' isn't 
+defined. Try correcting the 
+name to an existing named 
+parameter's name, or defining 
+a named parameter with the 
+name 'code'. - 
+undefined_named_parameter
+  error - features\auth\data\d
+atasources\auth_remote_datasou
+rce.dart:51:50 - The named 
+parameter 'code' isn't 
+defined. Try correcting the 
+name to an existing named 
+parameter's name, or defining 
+a named parameter with the 
+name 'code'. - 
+undefined_named_parameter
+  error - features\auth\data\d
+atasources\auth_remote_datasou
+rce.dart:81:50 - The named 
+parameter 'code' isn't 
+defined. Try correcting the 
+name to an existing named 
+parameter's name, or defining 
+a named parameter with the 
+name 'code'. - 
+undefined_named_parameter
+  error - features\auth\data\d
+atasources\auth_remote_datasou
+rce.dart:94:50 - The named 
+parameter 'code' isn't 
+defined. Try correcting the 
+name to an existing named 
+parameter's name, or defining 
+a named parameter with the 
+name 'code'. - 
+undefined_named_parameter
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:4:8 - Target of URI 
+doesn't exist: '../../core/err
+or/failures.dart'. Try 
+creating the file referenced 
+by the URI, or try using a 
+URI for a file that does 
+exist. - uri_does_not_exist
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:5:8 - Target of URI 
+doesn't exist: 
+'user_entity.dart'. Try 
+creating the file referenced 
+by the URI, or try using a 
+URI for a file that does 
+exist. - uri_does_not_exist
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:9:10 - The name 
+'UserEntity' isn't a type, so 
+it can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'UserEntity'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:11:17 - The name 
+'Failure' isn't a type, so it 
+can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'Failure'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:11:26 - The name 
+'UserEntity' isn't a type, so 
+it can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'UserEntity'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:16:17 - The name 
+'Failure' isn't a type, so it 
+can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'Failure'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:16:26 - The name 
+'UserEntity' isn't a type, so 
+it can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'UserEntity'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:22:17 - The name 
+'Failure' isn't a type, so it 
+can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'Failure'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:22:26 - The name 
+'UserEntity' isn't a type, so 
+it can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'UserEntity'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:24:17 - The name 
+'Failure' isn't a type, so it 
+can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'Failure'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:26:17 - The name 
+'Failure' isn't a type, so it 
+can't be used as a type 
+argument. Try correcting the 
+name to an existing type, or 
+defining a type named 
+'Failure'. - 
+non_type_as_type_argument
+  error - features\auth\domain
+\repositories\auth_repository.
+dart:28:3 - Undefined class 
+'UserEntity'. Try changing 
+the name to the name of an 
+existing class, or creating a 
+class with the name 
+'UserEntity'. - 
+undefined_class
+  error - features\family\pres
+entation\screens\family_screen
+.dart:108:43 - The method 
+'pop' isn't defined for the 
+type 'BuildContext'. Try 
+correcting the name to the 
+name of an existing method, 
+or defining a method named 
+'pop'. - undefined_method
+  error - features\family\pres
+entation\screens\family_screen
+.dart:111:19 - The method 
+'pop' isn't defined for the 
+type 'BuildContext'. Try 
+correcting the name to the 
+name of an existing method, 
+or defining a method named 
+'pop'. - undefined_method
+  error - features\medicines\d
+omain\entities\medicine_entity
+.dart:2:8 - Target of URI 
+doesn't exist: '../../core/uti
+ls/expiry_risk_engine.dart'. 
+Try creating the file 
+referenced by the URI, or try 
+using a URI for a file that 
+does exist. - 
+uri_does_not_exist
+  error - features\medicines\d
+omain\entities\medicine_entity
+.dart:13:9 - Undefined class 
+'ExpiryStatus'. Try changing 
+the name to the name of an 
+existing class, or creating a 
+class with the name 
+'ExpiryStatus'. - 
+undefined_class
+  error - features\medicines\d
+omain\entities\medicine_entity
+.dart:49:5 - Undefined class 
+'ExpiryStatus'. Try changing 
+the name to the name of an 
+existing class, or creating a 
+class with the name 
+'ExpiryStatus'. - 
+undefined_class
+  error - features\medicines\d
+omain\entities\medicine_entity
+.dart:65:25 - Undefined name 
+'ExpiryRiskEngine'. Try 
+correcting the name to one 
+that is defined, or defining 
+the name. - 
+undefined_identifier
+
+

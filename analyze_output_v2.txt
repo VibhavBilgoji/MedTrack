@@ -1,0 +1,24 @@
+﻿Analyzing medtrack...                                           
+
+warning - Unused import: 'package:medtrack/core/utils/expiry_risk_engine.dart' - lib\core\theme\app_theme.dart:5:8 - unused_import
+warning - The value of the field '_mfdLabel' isn't used - lib\core\utils\date_parser.dart:24:16 - unused_field
+warning - Unused import: '../models/user_model.dart' - lib\features\auth\data\repositories\auth_repository_impl.dart:6:8 - unused_import
+warning - Unused import: 'package:firebase_auth/firebase_auth.dart' - lib\features\auth\data\repositories\auth_repository_impl.dart:7:8 - unused_import
+warning - Unused import: 'package:medtrack/core/error/failures.dart' - lib\features\auth\presentation\controllers\auth_controller.dart:3:8 - unused_import
+warning - The value of the local variable 'isDark' isn't used - lib\features\auth\presentation\screens\login_screen.dart:330:11 - unused_local_variable
+warning - The value of the local variable 'isDark' isn't used - lib\features\dashboard\presentation\screens\dashboard_screen.dart:190:11 - unused_local_variable
+warning - The value of the local variable 'isDark' isn't used - lib\features\dashboard\presentation\screens\dashboard_screen.dart:265:11 - unused_local_variable
+   info - Unnecessary 'const' keyword - lib\features\disposal\presentation\screens\disposal_guide_screen.dart:139:17 - unnecessary_const
+   info - Unnecessary 'const' keyword - lib\features\disposal\presentation\screens\disposal_guide_screen.dart:146:17 - unnecessary_const
+   info - Unnecessary 'const' keyword - lib\features\disposal\presentation\screens\disposal_guide_screen.dart:147:17 - unnecessary_const
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\notifications\presentation\screens\notification_settings_screen.dart:38:15 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\notifications\presentation\screens\notification_settings_screen.dart:96:15 - deprecated_member_use
+   info - Use 'const' with the constructor to improve performance - lib\features\notifications\presentation\screens\notification_settings_screen.dart:108:20 - prefer_const_constructors
+warning - The value of the field '_rawText' isn't used - lib\features\scanner\presentation\screens\scanner_screen.dart:25:11 - unused_field
+   info - Use 'const' with the constructor to improve performance - lib\features\scanner\presentation\screens\scanner_screen.dart:188:28 - prefer_const_constructors
+   info - Use 'const' literals as arguments to constructors of '@immutable' classes - lib\features\scanner\presentation\screens\scanner_screen.dart:190:33 - prefer_const_literals_to_create_immutables
+   info - Use 'const' with the constructor to improve performance - lib\features\scanner\presentation\screens\scanner_screen.dart:191:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\scanner\presentation\screens\scanner_screen.dart:192:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\scanner\presentation\screens\scanner_screen.dart:193:25 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\features\scanner\presentation\screens\scanner_screen.dart:193:63 - prefer_const_constructors
+
