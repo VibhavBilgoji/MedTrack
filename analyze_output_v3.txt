@@ -1,5 +1,0 @@
-﻿Analyzing medtrack...                                           
-
-warning - The value of the local variable 'isDark' isn't used - lib\features\auth\presentation\screens\login_screen.dart:330:11 - unused_local_variable
-warning - The value of the field '_rawText' isn't used - lib\features\scanner\presentation\screens\scanner_screen.dart:25:11 - unused_field
-
