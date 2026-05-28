@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../domain/entities/user_entity.dart';
 
-/// Firestore DTO for user data
+/// DTO for user data (Supabase compatible)
 class UserModel {
   final String id;
   final String email;
@@ -19,26 +18,28 @@ class UserModel {
     this.notificationPreferences = const NotificationPreferences(),
   });
 
-  factory UserModel.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: doc.id,
-      email: data['email'] ?? '',
-      name: data['name'] ?? '',
-      photoUrl: data['photoUrl'],
-      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
-      notificationPreferences: data['notificationPreferences'] != null
-          ? NotificationPreferences.fromMap(data['notificationPreferences'])
+      id: json['id'] as String,
+      email: json['email'] ?? '',
+      name: json['name'] ?? '',
+      photoUrl: json['photo_url'] as String?,
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
+      notificationPreferences: json['notification_preferences'] != null
+          ? NotificationPreferences.fromMap(json['notification_preferences'] as Map<String, dynamic>)
           : const NotificationPreferences(),
     );
   }
 
-  Map<String, dynamic> toFirestore() => {
+  Map<String, dynamic> toJson() => {
+    'id': id,
     'email': email,
     'name': name,
-    'photoUrl': photoUrl,
-    'createdAt': Timestamp.fromDate(createdAt),
-    'notificationPreferences': notificationPreferences.toMap(),
+    'photo_url': photoUrl,
+    'created_at': createdAt.toIso8601String(),
+    'notification_preferences': notificationPreferences.toMap(),
   };
 
   UserEntity toEntity() => UserEntity(

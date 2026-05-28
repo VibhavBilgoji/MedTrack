@@ -62,6 +62,7 @@ class AppRoutes {
   static const String family = '/family';
   static const String disposal = '/disposal';
   static const String scanHistory = '/scan-history';
+  static const String prescriptionAnalyzer = '/prescription-analyzer';
 }
 
 /// App-wide string constants
@@ -104,7 +105,7 @@ class AppStrings {
   static const String expiryDate = 'Expiry Date';
   static const String manufacturingDate = 'Manufacturing Date';
   static const String shelfLife = 'Shelf Life (months)';
-  static const String scanToFill = 'Scan to Auto-Fill';
+  static const String scanToFill = 'Scan Dates on Pack';
   static const String saveChanges = 'Save Changes';
   static const String deleteMedicine = 'Delete Medicine';
 

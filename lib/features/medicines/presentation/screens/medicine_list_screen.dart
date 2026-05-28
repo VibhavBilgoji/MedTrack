@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/providers/providers.dart';
 import '../../../../core/utils/expiry_risk_engine.dart';
+import '../../domain/entities/medicine_entity.dart';
 import '../controllers/medicine_controller.dart';
+import '../../../prescription_analyzer/models/prescription_analysis.dart';
 import '../widgets/medicine_card.dart';
 
 class MedicineListScreen extends ConsumerStatefulWidget {
@@ -128,10 +131,40 @@ class _MedicineListScreenState extends ConsumerState<MedicineListScreen> {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => context.push(AppRoutes.addMedicine),
+          floatingActionButton: SpeedDial(
+            icon: Icons.add,
+            activeIcon: Icons.close,
             backgroundColor: AppColors.primary,
-            child: const Icon(Icons.add, color: Colors.white),
+            foregroundColor: Colors.white,
+            activeBackgroundColor: AppColors.surfaceLight,
+            activeForegroundColor: AppColors.primary,
+            visible: true,
+            curve: Curves.bounceIn,
+            overlayColor: Colors.black,
+            overlayOpacity: 0.5,
+            elevation: 8.0,
+            shape: const CircleBorder(),
+            children: [
+              SpeedDialChild(
+                child: const Icon(Icons.document_scanner_rounded),
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                label: 'AI Prescription Scan',
+                onTap: () {
+                  final uid = authAsync.valueOrNull?.id;
+                  final all = uid != null ? ref.read(medicinesStreamProvider(uid)).valueOrNull : null;
+                  final allNames = all?.map((m) => m.name).toList() ?? [];
+                  context.push(AppRoutes.prescriptionAnalyzer, extra: allNames);
+                },
+              ),
+              SpeedDialChild(
+                child: const Icon(Icons.medication_rounded),
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                label: 'Add Manually',
+                onTap: () => context.push(AppRoutes.addMedicine),
+              ),
+            ],
           ),
         );
       },

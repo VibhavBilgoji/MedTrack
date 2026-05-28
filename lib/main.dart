@@ -1,10 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:medtrack/core/data/medicine_database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app.dart';
-import 'package:medtrack/firebase_options.dart';
+import 'package:medtrack/core/config/supabase_config.dart';
+import 'package:medtrack/core/services/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +20,19 @@ void main() async {
 
   // ── Hive (local cache) ───────────────────────────────────────────────────
   await Hive.initFlutter();
-  // await Hive.openBox('medicines_cache');
-  // await Hive.openBox('settings');
 
-  // ── Firebase ──────────────────────────────────────────────────────────────
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+  // ── Supabase ─────────────────────────────────────────────────────────────
+  await Supabase.initialize(
+    url: SupabaseConfig.url,
+    anonKey: SupabaseConfig.anonKey,
   );
+
+  // ── Notifications ─────────────────────────────────────────────────────────
+  await NotificationService().init();
+  await NotificationService().requestPermissions();
+
+  // ── Medicine Database ─────────────────────────────────────────────────────
+  await MedicineDatabase.init();
 
   runApp(
     const ProviderScope(

@@ -1,124 +1,58 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import '../../../../core/error/failures.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/error/failures.dart' hide AuthException;
 import '../models/user_model.dart';
+import 'simple_auth_service.dart';
 
-/// Remote data source for Firebase Authentication + Firestore user profile
+/// Remote data source for Supabase Database user profile (custom auth)
 class AuthRemoteDataSource {
-  final FirebaseAuth _auth;
-  final FirebaseFirestore _firestore;
-  final GoogleSignIn _googleSignIn;
-
+  final SupabaseClient _supabase;
+  final SimpleAuthService _simpleAuth;
+  
   AuthRemoteDataSource({
-    required FirebaseAuth auth,
-    required FirebaseFirestore firestore,
-    required GoogleSignIn googleSignIn,
-  })  : _auth = auth,
-        _firestore = firestore,
-        _googleSignIn = googleSignIn;
+    required SupabaseClient supabase,
+    required SimpleAuthService simpleAuth,
+  }) : _supabase = supabase, 
+       _simpleAuth = simpleAuth;
 
-  Stream<User?> get authStateChanges => _auth.authStateChanges();
+  Stream<UserModel?> get authStateChanges => _simpleAuth.authStateChanges;
 
-  User? get currentFirebaseUser => _auth.currentUser;
+  UserModel? get currentUser => _simpleAuth.currentUser;
 
   Future<UserModel> signInWithEmail(String email, String password) async {
     try {
-      final cred = await _auth.signInWithEmailAndPassword(
-        email: email, password: password,
-      );
-      return await getUserModel(cred.user!);
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(_mapAuthError(e.code), e.code);
+      return await _simpleAuth.signIn(email, password);
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 
   Future<UserModel> signUpWithEmail(String email, String password, String name) async {
     try {
-      final cred = await _auth.createUserWithEmailAndPassword(
-        email: email, password: password,
-      );
-      await cred.user!.updateDisplayName(name);
-      final model = UserModel(
-        id: cred.user!.uid,
-        email: email,
-        name: name,
-        createdAt: DateTime.now(),
-      );
-      await _firestore.collection('users').doc(model.id).set(model.toFirestore());
-      return model;
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(_mapAuthError(e.code), e.code);
-    }
-  }
-
-  Future<UserModel> signInWithGoogle() async {
-    try {
-      final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) throw AuthException('Google sign-in cancelled.');
-      final googleAuth = await googleUser.authentication;
-      final cred = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      final userCred = await _auth.signInWithCredential(cred);
-      final user = userCred.user!;
-      final docRef = _firestore.collection('users').doc(user.uid);
-      final doc = await docRef.get();
-      if (!doc.exists) {
-        final model = UserModel(
-          id: user.uid,
-          email: user.email ?? '',
-          name: user.displayName ?? 'User',
-          photoUrl: user.photoURL,
-          createdAt: DateTime.now(),
-        );
-        await docRef.set(model.toFirestore());
-        return model;
-      }
-      return UserModel.fromFirestore(doc);
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(_mapAuthError(e.code), e.code);
+      return await _simpleAuth.signUp(email, password, name);
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
-    await _auth.signOut();
+    await _simpleAuth.signOut();
   }
 
   Future<void> sendPasswordReset(String email) async {
+    // Simplified: in "Mock Auth" mode, we don't have a real reset flow
+    throw ServerException('Password reset is not available in simplified auth mode.');
+  }
+
+  Future<UserModel> getUserModel(String userId) async {
     try {
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(_mapAuthError(e.code), e.code);
-    }
-  }
-
-  Future<UserModel> getUserModel(User user) async {
-    final doc = await _firestore.collection('users').doc(user.uid).get();
-    if (doc.exists) return UserModel.fromFirestore(doc);
-    final model = UserModel(
-      id: user.uid,
-      email: user.email ?? '',
-      name: user.displayName ?? 'User',
-      photoUrl: user.photoURL,
-      createdAt: DateTime.now(),
-    );
-    await _firestore.collection('users').doc(model.id).set(model.toFirestore());
-    return model;
-  }
-
-  String _mapAuthError(String code) {
-    switch (code) {
-      case 'user-not-found': return 'No account found with this email.';
-      case 'wrong-password': return 'Incorrect password.';
-      case 'email-already-in-use': return 'Email already in use.';
-      case 'weak-password': return 'Password is too weak.';
-      case 'invalid-email': return 'Invalid email format.';
-      case 'user-disabled': return 'This account has been disabled.';
-      case 'too-many-requests': return 'Too many attempts. Try again later.';
-      default: return 'Authentication error: $code';
+      final response = await _supabase.from('users').select().eq('id', userId).single();
+      return UserModel.fromJson(response);
+    } catch (e) {
+      throw ServerException('User profile not found: $e');
     }
   }
 }

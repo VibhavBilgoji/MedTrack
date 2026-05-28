@@ -61,20 +61,8 @@ class AuthController extends StateNotifier<AuthState> {
     );
   }
 
-  Future<bool> signInWithGoogle() async {
-    state = state.copyWith(isLoading: true, clearError: true);
-    final result = await _ref.read(signInWithGoogleUseCaseProvider)();
-    return result.fold(
-      (failure) {
-        state = state.copyWith(isLoading: false, error: failure.message);
-        return false;
-      },
-      (user) {
-        state = state.copyWith(isLoading: false, user: user);
-        return true;
-      },
-    );
-  }
+  // Google Sign-In not yet supported in Supabase migration
+  // Future<bool> signInWithGoogle() async { ... }
 
   Future<void> signOut() async {
     await _ref.read(signOutUseCaseProvider)();

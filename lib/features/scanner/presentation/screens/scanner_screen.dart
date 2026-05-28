@@ -21,8 +21,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> with WidgetsBindi
   CameraController? _controller;
   List<CameraDescription> _cameras = [];
   bool _isProcessing = false;
-  ParsedDate? _result;
-  // String? _rawText;
+  DualScanResult? _result;
   bool _mockMode = false;
 
   @override
@@ -58,7 +57,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> with WidgetsBindi
     }
     if (_controller == null || !_controller!.value.isInitialized || _isProcessing) return;
 
-    setState(() { _isProcessing = true; _result = null; /* _rawText = null; */ });
+    setState(() { _isProcessing = true; _result = null; });
 
     try {
       final image = await _controller!.takePicture();
@@ -87,11 +86,10 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> with WidgetsBindi
       await recognizer.close();
 
       final text = recognized.text;
-      // setState(() => _rawText = text);
-      final parsed = DateParser.parse(text);
-      setState(() => _result = parsed);
+      final dual = DateParser.parseDual(text);
+      setState(() => _result = dual);
 
-      if (parsed == null) _showNoResult();
+      if (!dual.hasExpiry && !dual.hasMfd) _showNoResult();
     } catch (e) {
       _showError('OCR failed: $e');
     }
@@ -101,9 +99,13 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> with WidgetsBindi
     setState(() => _isProcessing = true);
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
-      final mockDate = DateTime.now().add(const Duration(days: 240));
+      final mockMfd = DateTime.now().subtract(const Duration(days: 120));
+      final mockExp = DateTime.now().add(const Duration(days: 240));
       setState(() {
-        _result = ParsedDate(date: mockDate, confidence: 0.87, patternUsed: 'MM/YYYY');
+        _result = DualScanResult(
+          mfdDate: ParsedDate(date: mockMfd, confidence: 0.85, patternUsed: 'MM/YYYY'),
+          expiryDate: ParsedDate(date: mockExp, confidence: 0.87, patternUsed: 'EXP MON YYYY'),
+        );
         _isProcessing = false;
       });
     });
@@ -243,10 +245,12 @@ class _ScanGuide extends StatelessWidget {
 
 // ── Result Overlay ─────────────────────────────────────────────────────────────
 class _ResultOverlay extends StatelessWidget {
-  final ParsedDate result;
+  final DualScanResult result;
   final VoidCallback onUse;
   final VoidCallback onRetry;
   const _ResultOverlay({required this.result, required this.onUse, required this.onRetry});
+
+  String _fmt(DateTime d) => '${d.day.toString().padLeft(2,'0')}/${d.month.toString().padLeft(2,'0')}/${d.year}';
 
   @override
   Widget build(BuildContext context) {
@@ -266,21 +270,25 @@ class _ResultOverlay extends StatelessWidget {
             child: Column(
               children: [
                 const Icon(Icons.check_circle_rounded, color: AppColors.safe, size: 48),
+                const SizedBox(height: 12),
+                const Text('Dates Detected!',
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 16),
-                const Text(AppStrings.ocrSuccess, style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700)),
-                const SizedBox(height: 8),
-                Text(
-                  '${result.date.day}/${result.date.month}/${result.date.year}',
-                  style: const TextStyle(color: AppColors.primary, fontSize: 28, fontWeight: FontWeight.w800),
-                ),
-                const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.verified_rounded, color: AppColors.safe, size: 16),
-                    const SizedBox(width: 6),
-                    Text('${result.confidencePercent}% confidence • ${result.patternUsed}',
-                        style: const TextStyle(color: AppColors.textSecondaryDark, fontSize: 12)),
+                    if (result.hasMfd) Expanded(child: _DateChip(
+                      label: 'MFD',
+                      date: _fmt(result.mfdDate!.date),
+                      confidence: result.mfdDate!.confidencePercent,
+                      color: AppColors.safe,
+                    )),
+                    if (result.hasMfd && result.hasExpiry) const SizedBox(width: 12),
+                    if (result.hasExpiry) Expanded(child: _DateChip(
+                      label: 'EXP',
+                      date: _fmt(result.expiryDate!.date),
+                      confidence: result.expiryDate!.confidencePercent,
+                      color: AppColors.warning,
+                    )),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -297,7 +305,7 @@ class _ResultOverlay extends StatelessWidget {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: onUse,
-                        child: const Text('Use Date'),
+                        child: const Text('Use Dates'),
                       ),
                     ),
                   ],
@@ -310,6 +318,36 @@ class _ResultOverlay extends StatelessWidget {
     );
   }
 }
+
+class _DateChip extends StatelessWidget {
+  final String label;
+  final String date;
+  final int confidence;
+  final Color color;
+  const _DateChip({required this.label, required this.date, required this.confidence, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+        border: Border.all(color: color.withValues(alpha: 0.4)),
+      ),
+      child: Column(
+        children: [
+          Text(label, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1.2)),
+          const SizedBox(height: 6),
+          Text(date, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w800)),
+          const SizedBox(height: 4),
+          Text('$confidence% conf.', style: TextStyle(color: color.withValues(alpha: 0.8), fontSize: 10)),
+        ],
+      ),
+    );
+  }
+}
+
 
 // ── Bottom Controls ────────────────────────────────────────────────────────────
 class _BottomBar extends StatelessWidget {

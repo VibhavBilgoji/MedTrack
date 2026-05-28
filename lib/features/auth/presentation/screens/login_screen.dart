@@ -35,10 +35,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     if (ok && mounted) context.go(AppRoutes.dashboard);
   }
 
-  Future<void> _signInGoogle() async {
-    final ok = await ref.read(authControllerProvider.notifier).signInWithGoogle();
-    if (ok && mounted) context.go(AppRoutes.dashboard);
-  }
+  // Future<void> _signInGoogle() async {
+  //   final ok = await ref.read(authControllerProvider.notifier).signInWithGoogle();
+  //   if (ok && mounted) context.go(AppRoutes.dashboard);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +252,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                // Google Sign-In
+                // Google Sign-In (Disabled for now)
+                /*
                 OutlinedButton.icon(
                   key: const Key('login_google'),
                   onPressed: state.isLoading ? null : _signInGoogle,
@@ -269,6 +270,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
                 ),
+                */
               ],
             ),
           ),

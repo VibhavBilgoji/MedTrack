@@ -11,27 +11,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Stream<UserEntity?> get authStateChanges {
-    return _remoteDataSource.authStateChanges.asyncMap((user) async {
-      if (user == null) return null;
-      try {
-        return await _remoteDataSource.getUserModel(user).then((m) => m.toEntity());
-      } catch (_) {
-        return null;
-      }
+    return _remoteDataSource.authStateChanges.map((model) {
+      return model?.toEntity();
     });
   }
 
   @override
   UserEntity? get currentUser {
-    final user = _remoteDataSource.currentFirebaseUser;
-    if (user == null) return null;
-    return UserEntity(
-      id: user.uid,
-      email: user.email ?? '',
-      name: user.displayName ?? 'User',
-      photoUrl: user.photoURL,
-      createdAt: DateTime.now(),
-    );
+    return _remoteDataSource.currentUser?.toEntity();
   }
 
   @override
@@ -42,7 +29,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final model = await _remoteDataSource.signInWithEmail(email, password);
       return Right(model.toEntity());
-    } on AuthException catch (e) {
+    } on ServerException catch (e) {
       return Left(AuthFailure(e.message));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -58,7 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final model = await _remoteDataSource.signUpWithEmail(email, password, name);
       return Right(model.toEntity());
-    } on AuthException catch (e) {
+    } on ServerException catch (e) {
       return Left(AuthFailure(e.message));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -67,14 +54,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
-    try {
-      final model = await _remoteDataSource.signInWithGoogle();
-      return Right(model.toEntity());
-    } on AuthException catch (e) {
-      return Left(AuthFailure(e.message));
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
+    return const Left(ServerFailure('Google sign-in not implemented for simple auth.'));
   }
 
   @override
@@ -92,7 +72,7 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _remoteDataSource.sendPasswordReset(email);
       return const Right(null);
-    } on AuthException catch (e) {
+    } on ServerException catch (e) {
       return Left(AuthFailure(e.message));
     } catch (e) {
       return Left(ServerFailure(e.toString()));

@@ -159,6 +159,12 @@ flutter test test/unit/core/utils/date_parser_test.dart
 
 ---
 
+## 📚 Data Sources & Datasets
+
+We utilize a variety of global and India-specific datasets for drug classification, generic mapping, and pricing information. For a full list of resources, see [DATASETS.md](DATASETS.md).
+
+---
+
 ## 🚀 Deployment
 
 ### Android (Play Store)

@@ -1,34 +1,41 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 import '../../domain/entities/medicine_entity.dart';
 import '../models/medicine_model.dart';
 import '../../../../core/error/failures.dart';
 
-/// Firestore remote data source for medicines
+/// Supabase remote data source for medicines
 class MedicineRemoteDataSource {
-  final FirebaseFirestore _firestore;
+  final SupabaseClient _supabase;
   final Uuid _uuid;
 
-  MedicineRemoteDataSource({required FirebaseFirestore firestore, Uuid? uuid})
-      : _firestore = firestore,
+  MedicineRemoteDataSource({required SupabaseClient supabase, Uuid? uuid})
+      : _supabase = supabase,
         _uuid = uuid ?? const Uuid();
 
-  CollectionReference<Map<String, dynamic>> _col(String userId) =>
-      _firestore.collection('users').doc(userId).collection('medicines');
-
-  Stream<List<MedicineModel>> watchMedicines(String userId) {
-    return _col(userId)
-        .orderBy('expiryDate', descending: false)
-        .snapshots()
-        .map((snap) => snap.docs.map(MedicineModel.fromFirestore).toList());
+  /// Polls every 5 seconds instead of using Supabase Realtime (which requires
+  /// JWT auth that we've bypassed). This avoids RealtimeSubscribeException.
+  Stream<List<MedicineModel>> watchMedicines(String userId) async* {
+    while (true) {
+      try {
+        final data = await getMedicines(userId);
+        yield data;
+      } catch (_) {
+        yield [];
+      }
+      await Future.delayed(const Duration(seconds: 5));
+    }
   }
 
   Future<List<MedicineModel>> getMedicines(String userId) async {
     try {
-      final snap = await _col(userId)
-          .orderBy('expiryDate', descending: false)
-          .get();
-      return snap.docs.map(MedicineModel.fromFirestore).toList();
+      final List<dynamic> response = await _supabase
+          .from('medicines')
+          .select()
+          .eq('user_id', userId)
+          .order('expiry_date', ascending: true);
+          
+      return response.map((json) => MedicineModel.fromJson(json as Map<String, dynamic>)).toList();
     } catch (e) {
       throw ServerException('Failed to fetch medicines: $e');
     }
@@ -36,9 +43,14 @@ class MedicineRemoteDataSource {
 
   Future<MedicineModel> getMedicineById(String userId, String id) async {
     try {
-      final doc = await _col(userId).doc(id).get();
-      if (!doc.exists) throw ServerException('Medicine not found.');
-      return MedicineModel.fromFirestore(doc);
+      final response = await _supabase
+          .from('medicines')
+          .select()
+          .eq('user_id', userId)
+          .eq('id', id)
+          .single();
+          
+      return MedicineModel.fromJson(response);
     } catch (e) {
       throw ServerException('Failed to get medicine: $e');
     }
@@ -47,8 +59,8 @@ class MedicineRemoteDataSource {
   Future<MedicineModel> addMedicine(MedicineEntity entity) async {
     try {
       final id = _uuid.v4();
-      final model = MedicineModel.fromEntity(entity.copyWith()).copyWithId(id);
-      await _col(entity.userId).doc(id).set(model.toFirestore());
+      final model = MedicineModel.fromEntity(entity).copyWithId(id);
+      await _supabase.from('medicines').insert(model.toJson());
       return model;
     } catch (e) {
       throw ServerException('Failed to add medicine: $e');
@@ -58,7 +70,11 @@ class MedicineRemoteDataSource {
   Future<MedicineModel> updateMedicine(MedicineEntity entity) async {
     try {
       final model = MedicineModel.fromEntity(entity);
-      await _col(entity.userId).doc(entity.id).update(model.toFirestore());
+      await _supabase
+          .from('medicines')
+          .update(model.toJson())
+          .eq('id', entity.id)
+          .eq('user_id', entity.userId);
       return model;
     } catch (e) {
       throw ServerException('Failed to update medicine: $e');
@@ -67,7 +83,11 @@ class MedicineRemoteDataSource {
 
   Future<void> deleteMedicine(String userId, String id) async {
     try {
-      await _col(userId).doc(id).delete();
+      await _supabase
+          .from('medicines')
+          .delete()
+          .eq('id', id)
+          .eq('user_id', userId);
     } catch (e) {
       throw ServerException('Failed to delete medicine: $e');
     }
@@ -77,12 +97,16 @@ class MedicineRemoteDataSource {
     try {
       final now = DateTime.now();
       final cutoff = now.add(Duration(days: days));
-      final snap = await _col(userId)
-          .where('expiryDate', isGreaterThanOrEqualTo: Timestamp.fromDate(now))
-          .where('expiryDate', isLessThanOrEqualTo: Timestamp.fromDate(cutoff))
-          .orderBy('expiryDate')
-          .get();
-      return snap.docs.map(MedicineModel.fromFirestore).toList();
+      
+      final List<dynamic> response = await _supabase
+          .from('medicines')
+          .select()
+          .eq('user_id', userId)
+          .gte('expiry_date', now.toIso8601String())
+          .lte('expiry_date', cutoff.toIso8601String())
+          .order('expiry_date', ascending: true);
+          
+      return response.map((json) => MedicineModel.fromJson(json as Map<String, dynamic>)).toList();
     } catch (e) {
       throw ServerException('Failed to query expiring medicines: $e');
     }
@@ -91,11 +115,14 @@ class MedicineRemoteDataSource {
   Future<List<MedicineModel>> getExpired(String userId) async {
     try {
       final now = DateTime.now();
-      final snap = await _col(userId)
-          .where('expiryDate', isLessThan: Timestamp.fromDate(now))
-          .orderBy('expiryDate', descending: true)
-          .get();
-      return snap.docs.map(MedicineModel.fromFirestore).toList();
+      final List<dynamic> response = await _supabase
+          .from('medicines')
+          .select()
+          .eq('user_id', userId)
+          .lt('expiry_date', now.toIso8601String())
+          .order('expiry_date', ascending: false);
+          
+      return response.map((json) => MedicineModel.fromJson(json as Map<String, dynamic>)).toList();
     } catch (e) {
       throw ServerException('Failed to query expired medicines: $e');
     }

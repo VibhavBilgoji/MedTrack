@@ -8,10 +8,12 @@ import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/medicines/domain/entities/medicine_entity.dart';
 import '../../features/medicines/presentation/screens/add_medicine_screen.dart';
 import '../../features/medicines/presentation/screens/medicine_list_screen.dart';
+import '../../features/medicines/presentation/screens/medicine_detail_screen.dart';
 import '../../features/scanner/presentation/screens/scanner_screen.dart';
 import '../../features/notifications/presentation/screens/notification_settings_screen.dart';
 import '../../features/disposal/presentation/screens/disposal_guide_screen.dart';
 import '../../features/family/presentation/screens/family_screen.dart';
+import '../../features/prescription_analyzer/screens/prescription_camera_screen.dart';
 import '../../main_shell.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -55,8 +57,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => AddMedicineScreen(existing: state.extra as MedicineEntity?),
       ),
       GoRoute(
+        path: AppRoutes.medicineDetail,
+        builder: (context, state) => MedicineDetailScreen(medicine: state.extra as MedicineEntity),
+      ),
+      GoRoute(
         path: AppRoutes.scanner,
         builder: (_, __) => const ScannerScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.prescriptionAnalyzer,
+        builder: (context, state) => PrescriptionCameraScreen(
+          existingMedNames: (state.extra as List<String>?) ?? [],
+        ),
       ),
     ],
   );

@@ -18,6 +18,11 @@ class MedicineEntity extends Equatable {
   final bool notificationEnabled;
   final String? batchNumber;
   final String? notes;
+  // ── Dosage / Schedule ──────────────────────────────────────────
+  final String? dosageAmount;     // e.g. "1 tablet", "5 ml"
+  final int timesPerDay;          // 1 – 4
+  final List<String> scheduledTimes; // HH:mm strings e.g. ["08:00","20:00"]
+  final bool reminderEnabled;
 
   const MedicineEntity({
     required this.id,
@@ -35,6 +40,10 @@ class MedicineEntity extends Equatable {
     this.notificationEnabled = true,
     this.batchNumber,
     this.notes,
+    this.dosageAmount,
+    this.timesPerDay = 1,
+    this.scheduledTimes = const [],
+    this.reminderEnabled = true,
   });
 
   int get daysUntilExpiry => expiryDate.difference(DateTime.now()).inDays;
@@ -53,6 +62,10 @@ class MedicineEntity extends Equatable {
     String? batchNumber,
     String? notes,
     DateTime? lastNotifiedAt,
+    String? dosageAmount,
+    int? timesPerDay,
+    List<String>? scheduledTimes,
+    bool? reminderEnabled,
   }) {
     return MedicineEntity(
       id: id,
@@ -70,11 +83,15 @@ class MedicineEntity extends Equatable {
       notificationEnabled: notificationEnabled ?? this.notificationEnabled,
       batchNumber: batchNumber ?? this.batchNumber,
       notes: notes ?? this.notes,
+      dosageAmount: dosageAmount ?? this.dosageAmount,
+      timesPerDay: timesPerDay ?? this.timesPerDay,
+      scheduledTimes: scheduledTimes ?? this.scheduledTimes,
+      reminderEnabled: reminderEnabled ?? this.reminderEnabled,
     );
   }
 
   @override
-  List<Object?> get props => [id, userId, name, expiryDate, status];
+  List<Object?> get props => [id, userId, name, expiryDate, status, timesPerDay, scheduledTimes];
 }
 
 /// Available medicine categories
