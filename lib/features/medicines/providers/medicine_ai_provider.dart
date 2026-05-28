@@ -33,7 +33,7 @@ class MedicineAINotifier extends StateNotifier<MedicineAIState> {
     
     try {
       final model = GenerativeModel(
-        model: 'gemini-pro',
+        model: 'gemini-2.5-flash',
         apiKey: _geminiApiKey,
       );
 
@@ -61,7 +61,7 @@ class MedicineAINotifier extends StateNotifier<MedicineAIState> {
     
     try {
       final model = GenerativeModel(
-        model: 'gemini-pro',
+        model: 'gemini-2.5-flash',
         apiKey: _geminiApiKey,
         generationConfig: GenerationConfig(
           responseMimeType: 'application/json',
